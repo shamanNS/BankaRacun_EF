@@ -20,6 +20,20 @@ namespace BankaRacun_EF.Controllers
             return View(db.Racuni.ToList());
         }
 
+        public ActionResult ToggleActiveStatus(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var racun = db.Racuni.Find(id);
+            racun.Aktivan = !racun.Aktivan;
+            db.SaveChanges();
+            
+
+            return RedirectToAction("Index");
+        }
+
         // GET: Racun/Details/5
         public ActionResult Details(int? id)
         {

@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Racun")) 
 {
     @Html.AntiForgeryToken()
     
@@ -42,11 +42,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.OnlineBanking, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.OnlineBanking, htmlAttributes: new { @class = "control-label col-md-2"})
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.OnlineBanking)
-                    @Html.ValidationMessageFor(model => model.OnlineBanking, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.OnlineBanking, new {htmlAttributes = new { @Name = "test" } })
+                    @Html.ValidationMessageFor(model => model.OnlineBanking, "", new { @class = "text-danger"})
                 </div>
             </div>
         </div>
