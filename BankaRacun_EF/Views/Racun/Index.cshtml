@@ -21,6 +21,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Aktivan)
         </th>
+        <th>@Html.DisplayNameFor(m => m.SaldoRacuna)</th>
         <th></th>
     </tr>
 
@@ -41,6 +42,10 @@
             <td>
                 @*@Html.DisplayFor(modelItem => item.Aktivan)*@
                 @(item.Aktivan ? "Da" : "Ne")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SaldoRacuna)
+                
             </td>
             <td>
                 @Html.ActionLink("Otvori", "Details", new { id = item.RacunId }, new { style = "color: white" }) |

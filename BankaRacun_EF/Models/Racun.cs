@@ -37,6 +37,20 @@ namespace BankaRacun_EF.Models
 
         public virtual List<Uplatnica> Uplatnice { get; set; }
 
+        [NotMapped]
+        [Display(Name="Ukupno")]
+        public double SaldoRacuna { get; set; }
+
+        public void IzracunajSaldo()
+        {
+            double total = 0;
+            for (int i = 0; i < this.Uplatnice.Count; i++)
+            {
+                total += this.Uplatnice[i].Iznos;
+            }
+            this.SaldoRacuna = total;
+        }
+
         public Racun()
         {
             this.Uplatnice = new List<Uplatnica>();

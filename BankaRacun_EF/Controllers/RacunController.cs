@@ -17,7 +17,13 @@ namespace BankaRacun_EF.Controllers
         // GET: Racun
         public ActionResult Index()
         {
-            return View(db.Racuni.ToList());
+            var racuni = db.Racuni.Include(r => r.Uplatnice).ToList();
+
+            foreach (Racun r in racuni)
+            {
+                r.IzracunajSaldo();
+            }
+            return View(racuni);
         }
 
         public ActionResult ToggleActiveStatus(int? id)
@@ -29,23 +35,43 @@ namespace BankaRacun_EF.Controllers
             var racun = db.Racuni.Find(id);
             racun.Aktivan = !racun.Aktivan;
             db.SaveChanges();
-            
+
 
             return RedirectToAction("Index");
         }
 
         // GET: Racun/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string filter)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Racun racun = db.Racuni.Find(id);
+            Racun racun = db.Racuni.Include(r => r.Uplatnice).SingleOrDefault(r => r.RacunId == id);
             if (racun == null)
             {
                 return HttpNotFound();
             }
+
+
+            if (filter != null && (filter == "uplate" || filter == "isplate"))
+            {
+                List<Uplatnica> filtriraneUplatnice = null;
+                switch (filter)
+                {
+                    case "uplate":
+                        filtriraneUplatnice = racun.Uplatnice.Where(u => u.Iznos > 0).ToList();
+                        break;
+                    case "isplate":
+                        filtriraneUplatnice = racun.Uplatnice.Where(u => u.Iznos < 0).ToList();
+                        break;
+                    default:
+                        break;
+                }
+                
+                racun.Uplatnice = filtriraneUplatnice;
+            }
+            
             return View(racun);
         }
 

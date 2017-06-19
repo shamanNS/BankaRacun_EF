@@ -2,49 +2,65 @@
 
 @{
     ViewBag.Title = "Details";
+    Model.IzracunajSaldo();
 }
 
 <h2>Details</h2>
 
 <div>
-    <h4>Racun</h4>
+    <h4>Rad sa računom: @Model.BrojRacuna</h4>
+    <h6>Vlasnik računa: @Model.NosilacRacuna</h6>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.NosilacRacuna)
-        </dt>
+    <p>Spisak svih transakcija:</p>
+    <br />
 
-        <dd>
-            @Html.DisplayFor(model => model.NosilacRacuna)
-        </dd>
+    <table class="table table-bordered">
+        <tr>
+            <th>
+                Transant
+            </th>
+            <th>
+               Iznos uplate
+            </th>
+            <th>
+                Datum promena
+            </th>
+            <th>
+                Svrha uplate
+            </th>
+            <th>Hitno
+            </th>
+            <th></th>
+        </tr>
+       
+    @foreach (Uplatnica item in Model.Uplatnice)
+    {
+        <!-- po kom kriterijumu se boje redovi, pozitivan/nekativan iznos ili status računa?? -->
+        <tr style="background-color: @((item.Iznos > 0) ? "green" : "red")">
+            <td>@item.Uplatilac</td>
+            <td>@item.Iznos</td>
+            <td>@item.DatumPrometa.ToString("dd.MM.yyyy")</td>
+            <td>@item.SvrhaUplate</td>
+            <td>@(item.Hitno ? "Da" : "Ne")</td>
+            <td>
+                @Html.ActionLink("izmeni", "Edit", "Uplatnica", new { id = item.UplatnicaId }, null) |
+                @Html.ActionLink("obrisi", "Delete", "Uplatnica", new { id = item.UplatnicaId }, null) |
+            </td>
+        </tr>
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BrojRacuna)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.BrojRacuna)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Aktivan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Aktivan)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.OnlineBanking)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OnlineBanking)
-        </dd>
-
-    </dl>
+    </table>
+    @if (Model.Uplatnice.Count > 1)
+    {
+        <h4>Ukupno stanje: @Model.SaldoRacuna</h4>
+    }
+    @*<h2>@((Model.Uplatnice.Count > 1) ? "Ukupno stanje: " + Model.SaldoRacuna.ToString() : "")</h2>*@
+</div>
+<div>
+    @Html.ActionLink("Samo uplate", "Details", "Racun", new { filter = "uplate"}, null) |
+    @Html.ActionLink("Samo isplate", "Details", "Racun", new { filter = "isplate" }, null)
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RacunId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -42,6 +42,7 @@ namespace BankaRacun_EF.Models
         [Required]
         [MaxLength(50)]
         [Column("UPLATILAC")]
+        [Display(Name="Transant")]
         public string Uplatilac { get; set; }
 
         [Column("HITNO")]
