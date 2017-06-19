@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BankaRacun_EF.Models.Uplatnica>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Racun.NosilacRacuna)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Iznos)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumPrometa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SvrhaUplate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Uplatilac)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hitno)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Racun.NosilacRacuna)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Iznos)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.DatumPrometa)*@
+            @item.DatumPrometa.ToString("dd.MM.yyyy.")
+
+        <td>
+            @Html.DisplayFor(modelItem => item.SvrhaUplate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Uplatilac)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hitno)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.UplatnicaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.UplatnicaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.UplatnicaId })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BankaRacun_EF.Models.Racun>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NosilacRacuna)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojRacuna)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aktivan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OnlineBanking)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NosilacRacuna)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojRacuna)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Aktivan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OnlineBanking)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RacunId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RacunId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RacunId })
+        </td>
+    </tr>
+}
+
+</table>
