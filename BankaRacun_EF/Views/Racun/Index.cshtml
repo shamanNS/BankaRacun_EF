@@ -58,6 +58,8 @@
     }
 
 </table>
+<!-- treba izmeniti, ne može uvek new Racun, šta ako input greške prođu sve do server side pa treba vratiti nazad na view popunjen Genre
+    objekat. Znači verovatno pametnije da u Create Action-u strpam Genre objekat u ViewBag pa ga ovde castujem-->
 @Html.Partial("Create", new BankaRacun_EF.Models.Racun())
 
 @section Scripts {

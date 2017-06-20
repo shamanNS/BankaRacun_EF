@@ -26,6 +26,27 @@ namespace BankaRacun_EF.Controllers
             return View(racuni);
         }
 
+
+
+        /*
+         Googlati još i/ili pitati na predavanjima kako osigurati da
+         ovaj metod ne može da se pozove direktnim kucanjem odgovarajućeg
+         URL-a, a da pri tom i dalje može da se pozove KLIKOM NA 
+         "Aktiviraj/Deaktiviraj LINK u Index View-u.
+
+            Probao sam kombinacije ChildActionOnly, Html.Action/Html.RenderAction (jer prave
+            sub-request, ali problem je što oni treba nešto da vrate/renderuju u view)
+            i sa AntiForgeryToken (sa logikom "zaobilaženjem View-a faliće taj token i neće dozvoliti izvršavanje Action-a) 
+            ali posle video da to izgleda ima efekta samo za 
+            HttpPost tj slanje pomoću forme, a meni trenutno action "gađa"
+            najobičniji Html.ActionLink
+
+            Možda probati neki refactor da jedan action poziva drugi koji je private i/ili
+            obeležen sa [NonAction] atributom
+             */
+        [HttpGet]
+        //[ChildActionOnly]
+        //[ValidateAntiForgeryToken]
         public ActionResult ToggleActiveStatus(int? id)
         {
             if (id == null)
@@ -41,6 +62,8 @@ namespace BankaRacun_EF.Controllers
         }
 
         // GET: Racun/Details/5
+       
+        
         public ActionResult Details(int? id, string filter)
         {
             if (id == null)

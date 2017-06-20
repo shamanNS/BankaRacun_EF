@@ -37,6 +37,13 @@ namespace BankaRacun_EF.Models
 
         public virtual List<Uplatnica> Uplatnice { get; set; }
 
+
+        /*
+         Ovo racunanje za saldo/ukupno stanje računa verovatno ne bi trebalo na nivou modela da se radi
+         nego u samom controller action-u ??? Samim tim ni da se skladišti vrednost kao property
+         u modelu...
+             */
+
         [NotMapped]
         [Display(Name="Ukupno")]
         public double SaldoRacuna { get; set; }
